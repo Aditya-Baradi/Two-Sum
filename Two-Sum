@@ -1,0 +1,55 @@
+/* Solution 1 least effecient solution basic nested for loop O(n^2)
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for (int i=0; i< nums.length; ++i){
+            for (int j =0; j<nums.length; ++j){
+                if(i!=j){
+                    if (nums[i] + nums[j] == target){
+                        int[] tempArray = {i,j};
+                        return tempArray;
+                }
+                }
+            }
+        }
+        return null;
+    }
+}
+Solution 2 also O(n^2) but slightly faster than the previous code as it skips previously attempted indexes
+class Solution {
+        public static int[] twoSum(int[] nums, int target){
+            int i=0;
+            int j=1;
+            while (i<nums.length){
+                if(i!=j){
+                    if (nums[i]+ nums[j] == target){
+                        int[] tempArray = {i,j};
+                        return tempArray;
+                    }
+                    else{
+                        ++j;
+                        if(j>=nums.length){
+                            ++i;
+                            j=i+1;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+}
+Solution 3 Fastest code using a hash map to sort through the array to see if they equal the remainder O(n)
+*/
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i<nums.length; ++i){
+            int rem = target- nums[i];
+            if (map.containsKey(rem)){
+                return new int[] {map.get(rem), i};
+            }
+            map.put(nums[i], i);
+
+        }
+        return null;
+    }
+}
